@@ -4,6 +4,7 @@ const app = express()
 const PORT = 3000
 const reactViews = require("express-react-views")
 const mongoose = require("mongoose")
+const methodOverride = require('method-override')
 const Log = require("./models/logs")
 
 mongoose.connect(process.env.MONGO_URI,{
@@ -25,6 +26,9 @@ app.use((req,res,next) => {
 })
 
 app.use(express.urlencoded({extended:false}))
+app.use(methodOverride("_method"))
+
+
 
 app.get("/", (req,res) => {
     Log.find({}, (error,allLogs) => {
@@ -45,6 +49,13 @@ app.get("/", (req,res) => {
 //NEW
 app.get("/new", (req,res) => {
     res.render("New")
+})
+
+//DELETE
+app.delete("/:id", (req,res) => {
+    Log.findByIdAndDelete(req.params.id, (err,data) => {
+        res.redirect("/")
+    })
 })
 
 //CREATE
