@@ -67,6 +67,23 @@ app.post("/", (req,res) => {
     })
 })
 
+//SHOW
+app.get("/:id", (req,res) => {
+    Log.findById(req.params.id, (error,readLog) => {
+        if(!error) {
+            res
+            .status(200)
+            .render("Show",{
+                log: readLog
+            })
+        } else {
+            res
+            .status(400)
+            .send(error)
+        }
+    })
+})
+
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
 })
