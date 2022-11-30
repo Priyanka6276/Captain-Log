@@ -78,6 +78,21 @@ app.post("/", (req,res) => {
     })
 })
 
+//EDIT
+app.get("/:id/edit", (req,res) => {
+    Log.findById(req.params.id, (err,readLog) => {
+        if(!err) {
+            res
+            .status(200)
+            .render("Edit", {log: readLog})
+        } else {
+            res
+            .status(400)
+            .send({mes:err.message})
+        }
+    })
+})
+
 //SHOW
 app.get("/:id", (req,res) => {
     Log.findById(req.params.id, (error,readLog) => {

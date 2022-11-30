@@ -19,6 +19,7 @@ class Index extends React.Component {
                                         ?"Ship is broken"
                                         :"Ship is fine"
                                     } <br />
+                                    <a href={`/${log._id}/edit`}>This log is embarrassing: EDIT</a>
                                     <form action={`/${log._id}?_method=DELETE`} method="POST">
                                         <input type="submit" value="I regret this log: DELETE" />
                                     </form>
