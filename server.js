@@ -58,6 +58,21 @@ app.delete("/:id", (req,res) => {
     })
 })
 
+app.put("/:id", (req,res) => {
+    req.body.shipIsBroken = req.body.shipIsBroken === "true" ? true : false
+    Log.findByIdAndUpdate(req.params.id, req.body, (err,updatedLog) => {
+        if(!err){
+            res
+            .status(200)
+            .redirect(`/${req.params.id}`)
+        } else {
+            res
+            .status(400)
+            .send(err)
+        }
+    })
+})
+
 //CREATE
 app.post("/", (req,res) => {
     if(req.body.shipIsBroken === "true"){
